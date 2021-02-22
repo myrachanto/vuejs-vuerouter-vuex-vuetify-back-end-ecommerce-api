@@ -1,25 +1,31 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
+import store from "../store"
+import { auth } from "./modules/auth"
+import { general } from "./modules/gerneral"
+import { products } from "./modules/products"
+import mainlayout from "../layouts/mainwrapper"
 
+
+var token = store.getters.Token
+var isadmin = store.getters.isadmin = true
 Vue.use(VueRouter);
 
 const routes = [
-  {
-    path: "/",
-    name: "Home",
-    component: Home
-  },
-  {
-    path: "/about",
-    name: "About",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: function() {
-      return import(/* webpackChunkName: "about" */ "../views/About.vue");
+  ...auth,
+  {path: "/",component: mainlayout, beforeEnter(to, from, next) {
+    if (token && isadmin){
+      next()
+    }else{
+      next('/')
     }
-  }
+  },
+  children: [
+    ...general,
+    ...products
+        ]
+      },
+  
 ];
 
 const router = new VueRouter({
