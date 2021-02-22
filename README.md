@@ -1,24 +1,15 @@
-# ecommerce
+# vuejs-vuerouter-vuex-vuetify-back-end-ecommerce-api
+this part of the application form the frontend part of the application but the admin part as for the website I plan to build anecommerce website with nuxt and tailwind for easier loading and fast loading.
 
-## Project setup
-```
-npm install
-```
+## scope 
+the apllication is going to build upon serveral modules including
+- product module
+- sales module
+- inventory module
+- purchases module
+- blog module
+- seo module
+- front module
+- Anthentication module
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+I also plan to docarize the application
