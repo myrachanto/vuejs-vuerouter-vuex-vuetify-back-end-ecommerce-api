@@ -1,37 +1,22 @@
-<template>
-  <front>
-          <validation-observer
-    ref="observer"
-    v-slot="{ }"
-  >
-      <v-container fill-height fluid>
-        <v-row align="center"
-      justify="center">
-                <v-col 
-                class="auto"
-                cols="12"
-                md="6"
-                sm="4">
-            <v-card class="elevation-12">
-              <v-toolbar dark color="primary">
-                <v-toolbar-title>Register</v-toolbar-title>
-                <v-spacer></v-spacer>
-                <v-tooltip bottom>
-                  
-                </v-tooltip>
-                <v-tooltip right>
-                  <template v-slot:activator="{ on }">
-                    <v-btn icon v-on="on">
-                      <v-icon large>mdi-home</v-icon>
-                    </v-btn>
-                  </template>
-                  <span>Home</span>
-                </v-tooltip>
-              </v-toolbar>
-              <v-card-text>
-                  <v-form>
-                                 <v-container>
-                                      <template >  
+<template>  
+<div>
+    <v-container class="fill-height">
+      <v-row align="center" justify="center">
+        <v-col cols="12" sm="8" md="8">
+          <v-card class="elevation-12">
+                  <ValidationObserver
+                    ref="observer"
+                    v-slot="{}"
+                  >
+               <v-row class="fill-height">
+                 
+                 <v-col cols="12" md="12">
+                    <v-card-text class="mt-12">
+                      <h1 class="text-center display-2 teal--text text--accent-3">
+                        {{title}}
+                      </h1>
+                      
+                      <template >  
                                   <v-snackbar
                                   :timeout="timeout"
                                   v-model="snackbar"
@@ -48,20 +33,21 @@
                                 </v-snackbar>
                             
                           </template>
+                        <v-form>
+                                 <v-container>
                                   <v-row>
                                     <v-col
                                       cols="12"
                                       md="6"
                                     > <validation-provider
                                         v-slot="{ errors }"
-                                        name="firstname"
-                                        rules="required|max:10"
+                                        name="Title"
+                                        rules="required"
                                       >
                                       <v-text-field
-                                        v-model="form.firstname"
-                                        :counter="10"
+                                        v-model="form.title"
                                         :error-messages="errors"      
-                                        label="First name"
+                                        label=" title"
                                         required
                                       ></v-text-field>
                                       </validation-provider>
@@ -72,113 +58,111 @@
                                       md="6"
                                     ><validation-provider
                                         v-slot="{ errors }"
-                                        name="lastname"
-                                        rules="required|max:10"
+                                        name="Meta"
+                                        rules="required|"
                                       >
                                       <v-text-field
-                                        v-model="form.lastname"
-                                        :counter="10"
-                                        label="Last name"
+                                        v-model="form.meta"
+                                        label="Meta"
                                         :error-messages="errors"   
                                         required
                                       ></v-text-field>
                                       </validation-provider>
                                     </v-col>
                                   </v-row>
-                                  <v-row>
-                                    <v-col
+                                      <v-row>
+                                         <v-col
                                       cols="12"
                                       md="6"
                                     ><validation-provider
                                         v-slot="{ errors }"
-                                        name="username"
-                                        rules="required|max:10"
+                                        name="header1"
+                                        rules="required|"
                                       >
                                       <v-text-field
-                                        v-model="form.username"
-                                        :counter="10"
-                                        label="User name"
-                                        :error-messages="errors" 
+                                        v-model="form.header1"
+                                        label="Header 1"
+                                        :error-messages="errors"   
                                         required
                                       ></v-text-field>
                                       </validation-provider>
                                     </v-col>
-
-                                    <v-col
-                                      cols="12"
-                                      md="6"
-                                    ><validation-provider
+                                  <v-col
+                                    cols="12"
+                                    md="6"
+                                  >
+                                    <validation-provider
                                         v-slot="{ errors }"
-                                        name="phone"
+                                        name="header2"
                                         rules="required"
                                       >
                                       <v-text-field
-                                        v-model="form.phone"
-                                        :error-messages="errors" 
-                                        label="Phone"
-                                        required
-                                      ></v-text-field>
-                                      </validation-provider>
-                                    </v-col>
-                                  </v-row>
-                                   <v-row>
-                                    <v-col
-                                      cols="12"
-                                      md="12"
-                                    ><validation-provider
-                                        v-slot="{ errors }"
-                                        name="Address"
-                                        rules="required"
-                                      >
-                                      <v-text-field
-                                        v-model="form.address"
-                                        label="Address"
+                                        v-model="form.header2"
+                                        label="Header 2"
                                         :error-messages="errors" 
                                         required
                                       ></v-text-field>
                                       </validation-provider>
-                                    </v-col>
-
+                                  </v-col>
                                   
-                                  </v-row>
+                                   </v-row>
                                    <v-row>
                                     <v-col
                                       cols="12"
                                       md="12"
                                     ><validation-provider
                                         v-slot="{ errors }"
-                                        name="email"
-                                        rules="required|email"
-                                      >
-                                      <v-text-field
-                                        v-model="form.email"
-                                        :error-messages="errors" 
-                                        label="Email"
-                                        required
-                                        type="email"
-                                      ></v-text-field>
-                                </validation-provider>
-                                    </v-col>
-                                  </v-row>
-                                   <v-row>
-                                    <v-col
-                                      cols="12"
-                                      md="12"
-                                    ><validation-provider
-                                        v-slot="{ errors }"
-                                        name="password"
+                                        name="intro"
                                         rules="required"
                                       >
-                                      <v-text-field
-                                        v-model="form.password"
-                                        label="Password"
+                                      <v-textarea
+                                        v-model="form.intro"
+                                        name="input-7-1"
+                                        label="Introduction"
                                         :error-messages="errors" 
                                         required
-                                        type="password"
-                                      ></v-text-field>
+                                      ></v-textarea>
                                       </validation-provider>
                                     </v-col>
-                                  </v-row>
+                                   </v-row>
+                                   <v-row>
+                                    <v-col
+                                      cols="12"
+                                      md="12"
+                                    ><validation-provider
+                                        v-slot="{ errors }"
+                                        name="body"
+                                        rules="required"
+                                      >
+                                      <v-textarea
+                                        v-model="form.body"
+                                        name="input-7-1"
+                                        label="The body"
+                                        :error-messages="errors" 
+                                        required
+                                      ></v-textarea>
+                                      </validation-provider>
+                                    </v-col>
+                                   </v-row>
+                                   <v-row>
+                                    <v-col
+                                      cols="12"
+                                      md="12"
+                                    ><validation-provider
+                                        v-slot="{ errors }"
+                                        name="summary"
+                                        rules="required"
+                                      >
+                                      <v-textarea
+                                        v-model="form.summary"
+                                        name="input-7-1"
+                                        label="Summary"
+                                        :error-messages="errors" 
+                                        required
+                                      ></v-textarea>
+                                      </validation-provider>
+                                    </v-col>
+                                   </v-row>
                                    <v-row>
                                     <v-col
                                       cols="12"
@@ -197,29 +181,35 @@
                                     >   
                                       </v-col>
                                   </v-row>
+                                  
                                 </v-container>
                         
                       </v-form>
-              </v-card-text>
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn color="primary" @click="Register">Create</v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-col>
-        </v-row>
-      </v-container>
-          </validation-observer>
-  </front>
+                      <!-- <h3 class="text-center mt-3">have an account with us </h3> -->
+                    </v-card-text>
+                    <div class="text-center mt-3">
+                      <v-btn class="ma-3" dark @click="Back()">Back</v-btn>
+                      <v-btn class="ma-3" color="teal accent-3" @click="save()">Save</v-btn>
+                    </div>
+                    </v-col>
+               </v-row>
+                  </ValidationObserver>
+              
+          </v-card>
+        </v-col>
+      </v-row>
+    </v-container>
+
+</div>
 </template>
 
 <script>
-import front from '@/layouts/front'
-import axios from 'axios'
+ import axios from '@/axios'
+import cons from '@/helpers/myconstants'
+
   import { required, email, max } from 'vee-validate/dist/rules'
   import { extend, ValidationObserver, ValidationProvider, setInteractionMode } from 'vee-validate'
-
-  setInteractionMode('eager')
+ setInteractionMode('eager')
 
   extend('required', {
     ...required,
@@ -236,63 +226,82 @@ import axios from 'axios'
     message: 'Email must be valid',
   })
 
-  export default {
-    components: {
+export default {
+  name: "blogcreate",
+  components: {
       ValidationProvider,
       ValidationObserver,
-      front
     },
-    data: () => ({
+  data(){
+    return{
         form:{
-             firstname:'',
-            lastname:'',
-            username:'',
-            phone:'',
-            address:'',
-            email:'',
-            password:'',
+            title: '',
+            meta: '',
+            header1: '',
+            header2: '',
+            intro: '',
+            body: '',
+            summary: '',
             picture:{}
         },
-      errors: null,
-      timeout: 3000,
-      snackbar:false,
-      errs:{}
-    }),
-
-     methods: {
-      onFile(e){
-        console.log(e)
-        this.form.picture = e
-      },
-        signup(){
-          this.$router.push("/auth/login")
-        },
-        async Register(){
-                try {
-                  this.$store.commit("setLoaderTrue")
-                  let fd = new FormData();
+        majorcats:[],
+        errs:{},
+        option:[],
+        title:'Create blog',
+        init:'api/blogs/view',
+        redirect: '/blogs',
+        store: 'api/blogs',
+        method: 'post',
+        snackbar:false,
+        timeout:3000
+    }
+  },
+  created(){
+      this.host = cons.host
+  },
+  methods:{
+    onFile(e){
+      console.log(e)
+      this.form.picture = e
+    },
+    Back(){
+      this.$router.push(this.redirect)
+    },
+    View(id){
+      this.$router.push(`${this.redirect}/show/${id }`)
+    } ,
+   async save(){
+          try{
+              this.$store.commit("setLoaderTrue")
+                 let fd = new FormData();
                  fd.append("picture", this.form.picture, this.form.picture.name)
-                 fd.append("fname", this.form.firstname)
-                 fd.append("lname", this.form.lastname)
-                 fd.append("uname", this.form.username)
-                 fd.append("phone", this.form.phone)
-                 fd.append("address", this.form.address)
-                 fd.append("email", this.form.email)
-                 fd.append("business", this.form.business)
-                 fd.append("password", this.form.password)
-                const response = await axios.post('/register', fd ,{'Content-Type': 'multipart/form-data'})
-                 if(response){
-                    this.$router.push("/login")
+                 fd.append("title", this.form.title)
+                 fd.append("meta", this.form.meta)
+                 fd.append("header1", this.form.header1)
+                 fd.append("header2", this.form.header2)
+                 fd.append("intro", this.form.intro)
+                 fd.append("body", this.form.body)
+                 fd.append("summary", this.form.summary)
+            // axios.defaults.headers.common['Content-Type'] = 'multipart/form-data'
+            const {data} = await axios.post(`${this.store}`, 
+               fd ,{'Content-Type': 'multipart/form-data'})
+
+                if(data){
+                this.$router.push(this.redirect)
                 }
                 this.$store.commit("setLoader")
         }catch(err){
             this.snackbar = true
-            // console.log(err.response.data)
-            this.errs = err.response.data
-            this.$store.commit("setLoader")
-         }
-        },
-     }
+            this.errs = err
+                this.$store.commit("setLoader")
 
+        }
+
+  },
+  }
   }
 </script>
+
+<style>
+
+</style>

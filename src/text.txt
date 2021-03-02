@@ -1,0 +1,7 @@
+server {
+  listen *:80;
+  server_name site.topresearchpapers.com www.site.topresearchpapers.com;
+
+  root /home/writer/gilbert/site/dist;
+  autoindex on;
+}

@@ -8,20 +8,21 @@
 <script>
 import DataViewer from '@/components/viewers/dataviewer.vue'
 export default {
-      name: 'Products',
+      name: 'Users',
     components:{
         DataViewer,
     },
       data(){
           return{
-              title:'Products',
-              source: '/api/products',
-              create: '/products/create',
-              show:'/products',
+              title:'Users',
+              source: '/api/users',
+              create: '/users/create',
+              show:'/users',
               headers:[
-                { text: 'Name', value: 'name' },
-                { text: 'Title', value: 'title' },
-                { text: 'Description', value: 'description' },
+                { text: 'First Name', value: 'f_name' },
+                { text: 'Last Name', value: 'l_name' },
+                { text: 'Username', value: 'u_name' },
+                { text: 'Email', value: 'email' },
                 { text: 'Actions', value: 'actions', sortable: false },
               ]
           }

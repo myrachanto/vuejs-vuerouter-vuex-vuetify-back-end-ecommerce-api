@@ -24,49 +24,37 @@
         </v-list-item-icon>
         <v-list-item-title >DashBoard</v-list-item-title>
        </v-list-item>
-       <v-list-item to="/invoice"> 
-        <v-list-item-icon>
-          <v-icon>mdi-cash-plus</v-icon>
-        </v-list-item-icon>
-        <v-list-item-title >Sales</v-list-item-title>
-       </v-list-item>
        <v-list-item to=""> 
         <v-list-item-icon>
           <v-icon>fas fa-globe</v-icon>
         </v-list-item-icon>
         <v-list-item-title >Orders</v-list-item-title>
        </v-list-item>
-       <v-list-item to="/sinvoice"> 
-        <v-list-item-icon>
-          <v-icon>fas fa-shopping-basket</v-icon>
-        </v-list-item-icon>
-        <v-list-item-title >Purchases</v-list-item-title>
-       </v-list-item>
-       <v-list-item to="/inventory"> 
+       <v-list-item to="/invetory/update"> 
         <v-list-item-icon>
           <v-icon>mdi-calculator</v-icon>
         </v-list-item-icon>
         <v-list-item-title >Inventory</v-list-item-title>
        </v-list-item>
-       <v-list-item to="/product"> 
+       <v-list-item to="/products"> 
         <v-list-item-icon>
           <v-icon>fab fa-product-hunt</v-icon>
         </v-list-item-icon>
         <v-list-item-title >Product</v-list-item-title>
        </v-list-item>
-       <v-list-item to="/"> 
+       <v-list-item to="/seos"> 
         <v-list-item-icon>
           <v-icon>fab fa-searchengin</v-icon>
         </v-list-item-icon>
         <v-list-item-title >SEO</v-list-item-title>
        </v-list-item>
-       <v-list-item to="/"> 
+       <v-list-item to="/blogs"> 
         <v-list-item-icon>
           <v-icon>fas fa-blog</v-icon>
         </v-list-item-icon>
         <v-list-item-title >Blog</v-list-item-title>
        </v-list-item>
-       <v-list-item to="/"> 
+       <v-list-item to="/users"> 
         <v-list-item-icon>
           <v-icon>fas fa-users</v-icon>
         </v-list-item-icon>

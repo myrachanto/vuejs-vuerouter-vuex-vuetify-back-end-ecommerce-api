@@ -1,85 +1,33 @@
 <template>
 <div>
  <v-container fluid>
-              <template>
+    <v-row>
+<v-col>
+    <v-toolbar
+    >
+<v-toolbar-title>{{title}}</v-toolbar-title>
+<v-spacer></v-spacer>
+    </v-toolbar>
+    <template>
   <v-expansion-panels>
     <v-expansion-panel
     >
       <v-expansion-panel-header>
-        Search
+        filter
       </v-expansion-panel-header>
       <v-expansion-panel-content>
        <v-row>
         <v-col
           cols="12"
-          md="4">
-           <v-select
-          :items="filters"
-          label="Search Date"
-          v-model="dated"
-          @change="selected(dated)"
-        ></v-select>
+          md="9"
+        >
+          <v-text-field
+            v-model="search"
+            label="Search query"
+            required
+          ></v-text-field>
         </v-col>
-        <v-col
-      cols="12"
-      sm="6"
-      md="3"
-      v-if="custom"
-    >
-      <v-menu
-        v-model="menu"
-        :close-on-content-click="false"
-        :nudge-right="40"
-        transition="scale-transition"
-        offset-y
-        min-width="290px"
-      >
-        <template v-slot:activator="{ on, attrs }">
-          <v-text-field
-            v-model="searchq2"
-            label="Between Date"
-            prepend-icon="mdi-calendar"
-            readonly
-            v-bind="attrs"
-            v-on="on"
-          ></v-text-field>
-        </template>
-        <v-date-picker
-          v-model="searchq2"
-          @input="menu = false"
-        ></v-date-picker>
-      </v-menu>
-    </v-col>
-    <v-col
-      cols="12"
-      sm="6"
-      md="3"
-      v-if="custom"
-    >
-      <v-menu
-        v-model="menu2"
-        :close-on-content-click="false"
-        :nudge-right="40"
-        transition="scale-transition"
-        offset-y
-        min-width="290px"
-      >
-        <template v-slot:activator="{ on, attrs }">
-          <v-text-field
-            v-model="searchq3"
-            label="And Date"
-            prepend-icon="mdi-calendar"
-            readonly
-            v-bind="attrs"
-            v-on="on"
-          ></v-text-field>
-        </template>
-        <v-date-picker
-          v-model="searchq3"
-          @input="menu2 = false"
-        ></v-date-picker>
-      </v-menu>
-    </v-col>
+       
 
         <v-col
           cols="12"
@@ -88,7 +36,7 @@
          <v-btn class="ma-2" 
       depressed
       color="success"
-      @click="GetData()"
+      @click="GetData"
     >
       Search
     </v-btn>
@@ -104,42 +52,38 @@
     </v-expansion-panel>
   </v-expansion-panels>
     </template>
+</v-col>
+ </v-row>
         <v-row align="center"
               justify="center"
               >
-                <v-col v-if="sales"
+                <v-col v-if="inventory"
                 class="auto"
                 cols="12"
                 sm="8"
                 md="3">
-                 <Dcard :title="sales.Name" :total="formatcurrency(sales.Total)" :desc="sales.Description" :icon="`mdi-cash-plus`" :rout="`/sales/report`"/>
+                 <Dcard :title="inventory.name" :total="formatcurrency(inventory.total)" :desc="inventory.description" :icon="`mdi-cash-plus`" />
                 </v-col>
-                 <v-col  v-if="purchases"
+                 <v-col  v-if="products"
                 class="auto"
                 cols="12"
                 sm="8"
                 md="3">
-                 <Dcard :title="purchases.Name" :total="formatcurrency(purchases.Total)" :desc="purchases.Description" :icon="`mdi-cash-minus`" :rout="`/purchases/report`"/>
+                 <Dcard :title="products.name" :total="formatcurrency(products.total)" :desc="products.description" :icon="`mdi-cash-minus`" />
                 </v-col>
-                 <v-col  v-if="receipts"
+                 <v-col  v-if="blogs"
                 class="auto"
                 cols="12"
                 sm="8"
                 md="3">
-                 <Dcard :title="receipts.Name" :total="formatcurrency(receipts.Total)" :desc="receipts.Description" :icon="receipts.Icon"  :rout="`/receipts/report`"/>
-                </v-col> <v-col  v-if="payments"
+                 <Dcard :title="blogs.name" :total="formatcurrency(blogs.total)" :desc="blogs.description" :icon="blogs.Icon"  />
+                </v-col> <v-col  v-if="users"
                 class="auto"
                 cols="12"
                 sm="8"
                 md="3">
-                 <Dcard :title="payments.Name" :total="formatcurrency(payments.Total)" :desc="payments.Description" :icon="payments.Icon"  :rout="`/payments/report`" />
-                </v-col> <v-col  v-if="expences"
-                class="auto"
-                cols="12"
-                sm="8"
-                md="4">
-                 <Dcard :title="expences.Name" :total="formatcurrency(expences.Total)" :desc="expences.Description" :icon="expences.Icon"  :rout="`/expences/report`"/>
-                </v-col>
+                 <Dcard :title="users.name" :total="formatcurrency(users.total)" :desc="users.description" :icon="users.Icon"   />
+                </v-col> 
                 <v-col></v-col>
       </v-row>
   </v-container>
@@ -153,30 +97,14 @@ import Dcard from '@/components/cards/dashboardcard'
 export default {
     data(){
     return{
-      receipts:{},
-      customers:{},
-      payments:{},
-      purchases:{},
-      sales:{},
-      suppliers:{}, 
-      expences:{},   
+      inventory:{},
+      products:{},
+      blogs:{},
+      users:{}, 
       errs:{},  
       source: 'api/dashboard',
-      dated:'In the last 30days',
-            searchq2 : '',
-            searchq3 : '',
-            custom: false,
-            // date: new Date().toISOString().substr(0, 10),
-            menu: false,
-            modal: false,
-            menu2: false,
-            filters:[
-              'In the last 24hrs',
-              'In the last 7days',
-              'In the last 15day',
-              'In the last 30days',
-              'custom'
-            ]
+      search:'',
+      title:'Dashboard',
     }
   },
 
@@ -203,25 +131,19 @@ export default {
           }
         },   
    resetFilter(){
-            this.dated = 'In the last 30days'
-            this.searchq2 = ''
-            this.searchq3 = '' 
-            this.custom = false
+            this.search = 'search'
             this.GetData()
         },
       async GetData(){
           try{
               this.$store.commit("setLoaderTrue")
             var p = this
-            const {data} = await axios.get(`${this.source}?dated=${p.dated}&searchq2=${p.searchq2}&searchq3=${p.searchq3}`)
-           const { receipts, payments,purchases,sales,customers,suppliers,expences } = data
-           this.receipts = receipts
-           this.customers = customers
-           this.purchases = purchases
-           this.sales = sales
-           this.suppliers = suppliers
-           this.expences =expences
-           this.payments =payments
+            const {data} = await axios.get(`${this.source}?search=${p.search}`)
+           const { inventory, users,products,blogs } = data
+           this.inventory = inventory
+           this.users = users
+           this.products = products
+           this.blogs = blogs
                 this.$store.commit("setLoader")
         }catch(err){
          this.snackbar = true

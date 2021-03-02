@@ -98,6 +98,17 @@
                   ></v-textarea>
                     </validation-provider>
                   </v-col>
+                  <v-col
+                        cols="12"
+                        md="12"
+                      >   <v-file-input
+                          accept="image/*"
+                          label="Picture"
+                          required
+                          type="file"
+                          @change="onFile"
+                        ></v-file-input>
+                        </v-col>
                 </v-row>
                  </ValidationObserver>
               </v-container>
@@ -119,12 +130,6 @@
         @click="editItem(item)"
       >
         mdi-pencil
-      </v-icon><v-icon
-        small
-        class="mr-2"
-        @click="View(item)"
-      >
-        mdi-eye
       </v-icon>
     </template>
     <template v-slot:no-data>
@@ -176,16 +181,19 @@ import axios from '@/axios'
       snackbar:false,
       timeout:3000,
       items: [],
+      picture: {},
       editedIndex: -1,
       editedItem: {
         name: '',
         title: '',
-        description: ''
+        description: '',
+        picture: ''
       },
       defaultItem: {
         name: '',
         title: '',
-        description: ''
+        description: '',
+        picture: ''
       },
     }),
 
@@ -210,11 +218,15 @@ import axios from '@/axios'
     },
 
     methods: {
+      onFile(e){
+      console.log(e)
+      this.picture = e
+    },
       async fetchData () {
             try{
                   this.$store.commit("setLoaderTrue")
                 // console.log(token)
-              const {data} = await axios.get(`${this.init}/${this.$route.params.code}`)
+              const {data} = await axios.get(`${this.init}/${this.$route.params.cat}`)
                 this.items = data
                     this.$store.commit("setLoader")
             }catch(err){
@@ -241,16 +253,34 @@ import axios from '@/axios'
         if (this.editedIndex > -1) {
           try{
               this.$store.commit("setLoaderTrue")
+                if (this.picture){
                 let fd = new FormData();
+                  fd.append("picture", this.picture, this.picture.name)
                  fd.append("name", this.editedItem.name)
                  fd.append("title", this.editedItem.title)
-                 fd.append("category", this.$route.params.code)
+                 fd.append("category", this.$route.params.cat)
+                 fd.append("majorcategory", this.$route.params.code)
                  fd.append("description", this.editedItem.description)
+                 fd.append("pcode", this.editedItem.code)
                 // fd.append("usercode", this.$store.getters.usercode);
                   await axios.put(`${this.store}/${this.editedItem.code}`, fd ,{'Content-Type': 'multipart/form-data'})
                   this.close()
                  this.fetchData()
                 this.$store.commit("setLoader")
+              }else{
+                let fd = new FormData();
+                 fd.append("name", this.editedItem.name)
+                 fd.append("title", this.editedItem.title)
+                 fd.append("category", this.$route.params.cat)
+                 fd.append("majorcategory", this.$route.params.code)
+                 fd.append("description", this.editedItem.description)
+                 fd.append("pcode", this.editedItem.code)
+                // fd.append("usercode", this.$store.getters.usercode);
+                  await axios.put(`${this.store}/${this.editedItem.code}`, fd ,{'Content-Type': 'multipart/form-data'})
+                  this.close()
+                 this.fetchData()
+                this.$store.commit("setLoader")
+              }
           }catch(err){
             this.snackbar = true
             console.log(err)
@@ -260,15 +290,30 @@ import axios from '@/axios'
         } else {
           try{
               this.$store.commit("setLoaderTrue")
+                if (this.picture){
                 let fd = new FormData();
+                  fd.append("picture", this.picture, this.picture.name)
                  fd.append("name", this.editedItem.name)
                  fd.append("title", this.editedItem.title)
-                 fd.append("category", this.$route.params.code)
+                 fd.append("category", this.$route.params.cat)
+                 fd.append("majorcategory", this.$route.params.code)
                  fd.append("description", this.editedItem.description)
                   await axios.post(this.store, fd ,{'Content-Type': 'multipart/form-data'})
                   this.close()
                  this.fetchData()
                 this.$store.commit("setLoader")
+                }else{
+                let fd = new FormData();
+                 fd.append("name", this.editedItem.name)
+                 fd.append("title", this.editedItem.title)
+                 fd.append("category", this.$route.params.cat)
+                 fd.append("majorcategory", this.$route.params.code)
+                 fd.append("description", this.editedItem.description)
+                  await axios.post(this.store, fd ,{'Content-Type': 'multipart/form-data'})
+                  this.close()
+                 this.fetchData()
+                this.$store.commit("setLoader")
+                }
           }catch(err){
             this.snackbar = true
             console.log(err)

@@ -1,12 +1,11 @@
 <template>
-  <v-container fill-height fluid>
         <v-row align="center"
               justify="center"
               >
                 <v-col 
                 class="auto"
                 cols="12"
-                sm="8"
+                sm="12"
                 md="6">
 <v-data-table
     :headers="headers"
@@ -145,14 +144,13 @@
                 <v-col 
                 class="auto"
                 cols="12"
-                sm="8"
+                sm="12"
                 md="6">
                 <router-view>
                 </router-view>
                 </v-col>
         </v-row>
   
-  </v-container>
 </template>
 
 <script> 
@@ -187,6 +185,7 @@ import axios from '@/axios'
         { text: 'Name', value: 'name' },
         { text: 'Title', value: 'title' },
         { text: 'Description', value: 'description' },
+        { text: 'Code', value: 'code' },
         { text: 'Actions', value: 'actions', sortable: false}
       ],
       errs:{},

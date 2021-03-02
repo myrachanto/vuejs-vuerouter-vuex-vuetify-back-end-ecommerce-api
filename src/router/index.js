@@ -5,7 +5,9 @@ import { auth } from "./modules/auth"
 import { general } from "./modules/gerneral"
 import { products } from "./modules/products"
 import mainlayout from "../layouts/mainwrapper"
-
+import { Users} from "./modules/users"
+import { blogs} from "./modules/blog"
+import { seos} from "./modules/seo"
 
 var token = store.getters.Token
 var isadmin = store.getters.isadmin = true
@@ -22,7 +24,10 @@ const routes = [
   },
   children: [
     ...general,
-    ...products
+    ...products,
+    ...Users,
+    ...blogs,
+    ...seos
         ]
       },
   
