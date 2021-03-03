@@ -60,6 +60,18 @@
     :items="items"
     class="elevation-1"
   >
+   <template v-slot:[`item.oldprice`]="{ item }">
+              
+                {{ formatcurrency(item.oldprice) }}
+            </template>
+             <template v-slot:[`item.newprice`]="{ item }">
+              
+                {{ formatcurrency(item.newprice) }}
+            </template> 
+            <template v-slot:[`item.buyprice`]="{ item }">
+              
+                {{ formatcurrency(item.buyprice) }}
+            </template>
     <template v-slot:top>
         <v-dialog
           v-model="dialog"
@@ -82,6 +94,36 @@
                     <v-text-field
                       v-model="editedItem.quantity"
                       label="Quantity"
+                    ></v-text-field>
+                  </v-col>
+                   <v-col
+                    cols="12"
+                    sm="6"
+                    md="6"
+                  >
+                    <v-text-field
+                      v-model="editedItem.oldprice"
+                      label="OLd Price"
+                    ></v-text-field>
+                  </v-col>
+                   <v-col
+                    cols="12"
+                    sm="6"
+                    md="6"
+                  >
+                    <v-text-field
+                      v-model="editedItem.newprice"
+                      label="New Price"
+                    ></v-text-field>
+                  </v-col>
+                   <v-col
+                    cols="12"
+                    sm="6"
+                    md="6"
+                  >
+                    <v-text-field
+                      v-model="editedItem.buyprice"
+                      label="Buying price"
                     ></v-text-field>
                   </v-col>
                 </v-row>
@@ -131,6 +173,7 @@
 </v-container>
 </template>
 <script>
+import formatMoney from '@/helpers/currencyformat'
  import axios from '@/axios'
   export default {
     data: () => ({
@@ -141,16 +184,20 @@
       search: '',
       headers:[
         { text: 'Name', value: 'name' }, 
-        { text: 'Title', value: 'title' },
-        { text: 'Description', value: 'description' },
         { text: 'Quantity', value: 'quantity' },
+        { text: 'Old Price', value: 'oldprice' },
+        { text: 'New price', value: 'newprice' },
+        { text: 'Buying Price', value: 'buyprice' },
         { text: 'Actions', value: 'actions', sortable: false },
       ],
       items: [],
       editedIndex: -1,
       editedItem: {
         quantity: 0,
-        code:''
+        code:'',
+        oldprice: 0,
+        newprice: 0,
+        buyprice:0
       },
       defaultItem: {
         quantity: 0,
@@ -177,10 +224,12 @@
     },
 
     methods: {
+      formatcurrency(d) {
+          return formatMoney(d)
+        },
 
         resetFilter(){
             this.search = ''
-            this.custom = false
             this.GetData()
         },
       async save(code){
@@ -188,6 +237,9 @@
                 this.$store.commit("setLoaderTrue")
                   let fd = new FormData();
                   fd.append("quantity", this.editedItem.quantity)
+                  fd.append("oldprice", this.editedItem.oldprice)
+                  fd.append("newprice", this.editedItem.newprice)
+                  fd.append("buyprice", this.editedItem.buyprice)
               // axios.defaults.headers.common['Content-Type'] = 'multipart/form-data'
               await axios.put(`${this.update}/${code}`, 
                 fd ,{'Content-Type': 'multipart/form-data'})

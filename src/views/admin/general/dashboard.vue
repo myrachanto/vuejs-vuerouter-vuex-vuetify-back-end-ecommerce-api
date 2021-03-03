@@ -1,88 +1,42 @@
 <template>
 <div>
  <v-container fluid>
-    <v-row>
-<v-col>
-    <v-toolbar
-    >
-<v-toolbar-title>{{title}}</v-toolbar-title>
-<v-spacer></v-spacer>
-    </v-toolbar>
-    <template>
-  <v-expansion-panels>
-    <v-expansion-panel
-    >
-      <v-expansion-panel-header>
-        filter
-      </v-expansion-panel-header>
-      <v-expansion-panel-content>
-       <v-row>
-        <v-col
-          cols="12"
-          md="9"
-        >
-          <v-text-field
-            v-model="search"
-            label="Search query"
-            required
-          ></v-text-field>
-        </v-col>
-       
-
-        <v-col
-          cols="12"
-          md="2"
-        >
-         <v-btn class="ma-2" 
-      depressed
-      color="success"
-      @click="GetData"
-    >
-      Search
-    </v-btn>
-         <v-btn class="ma-2" 
-      depressed
-      color="primary"
-      @click="resetFilter"
-    >
-      Reset
-    </v-btn>
-        </v-col>
-      </v-row></v-expansion-panel-content>
-    </v-expansion-panel>
-  </v-expansion-panels>
-    </template>
-</v-col>
- </v-row>
         <v-row align="center"
               justify="center"
               >
+                <v-col v-if="stocks"
+                class="auto"
+                cols="12"
+                sm="8"
+                md="6">
+                 <Dcard :title="stocks.name" :total="formatcurrency(stocks.total)" :desc="stocks.description" :icon="`mdi-cash-plus`" :rout="`/invetory/update`"/>
+                </v-col>
                 <v-col v-if="inventory"
                 class="auto"
                 cols="12"
                 sm="8"
-                md="3">
-                 <Dcard :title="inventory.name" :total="formatcurrency(inventory.total)" :desc="inventory.description" :icon="`mdi-cash-plus`" />
+                md="6">
+                 <Dcard :title="inventory.name" :total="formatcurrency(inventory.total)" :desc="inventory.description" :icon="`mdi-cash-plus`" :rout="`/invetory/update`"/>
                 </v-col>
                  <v-col  v-if="products"
                 class="auto"
                 cols="12"
                 sm="8"
-                md="3">
-                 <Dcard :title="products.name" :total="formatcurrency(products.total)" :desc="products.description" :icon="`mdi-cash-minus`" />
+                md="4">
+                 <Dcard :title="products.name" :total="String(parseInt(products.total))" :desc="products.description" :icon="`mdi-cash-minus`" :rout="`/products`" />
                 </v-col>
                  <v-col  v-if="blogs"
                 class="auto"
                 cols="12"
                 sm="8"
-                md="3">
-                 <Dcard :title="blogs.name" :total="formatcurrency(blogs.total)" :desc="blogs.description" :icon="blogs.Icon"  />
+                md="4">
+                 <Dcard :title="blogs.name" :total="String(parseInt(blogs.total))" :desc="blogs.description" :icon="`fas fa-blog`" :rout="`/blogs`"   />
                 </v-col> <v-col  v-if="users"
                 class="auto"
                 cols="12"
                 sm="8"
-                md="3">
-                 <Dcard :title="users.name" :total="formatcurrency(users.total)" :desc="users.description" :icon="users.Icon"   />
+                md="4">
+                 <Dcard :title="users.name" :total="String(parseInt(users.total))" :desc="users.description" :icon="`fas fa-users`"  :rout="`/users`"  />
                 </v-col> 
                 <v-col></v-col>
       </v-row>
@@ -100,7 +54,8 @@ export default {
       inventory:{},
       products:{},
       blogs:{},
-      users:{}, 
+      users:{},
+      stocks:{},
       errs:{},  
       source: 'api/dashboard',
       search:'',
@@ -139,11 +94,12 @@ export default {
               this.$store.commit("setLoaderTrue")
             var p = this
             const {data} = await axios.get(`${this.source}?search=${p.search}`)
-           const { inventory, users,products,blogs } = data
+           const { inventory, users,products,blogs, stocks } = data
            this.inventory = inventory
            this.users = users
            this.products = products
            this.blogs = blogs
+           this.stocks = stocks
                 this.$store.commit("setLoader")
         }catch(err){
          this.snackbar = true

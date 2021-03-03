@@ -4,7 +4,7 @@
       v-model="drawer"
       app
     ><v-list>
-      <v-list-item to="/user/messages">
+      <v-list-item >
         <v-list-item-avatar>
           <v-img :src="`${host}${picture}`"></v-img>
         </v-list-item-avatar>
@@ -74,7 +74,7 @@
     <v-app-bar app>
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
 
-      <v-toolbar-title><span v-if="business">{{business}}</span><span v-else>Chantos Accounts</span></v-toolbar-title>
+      <v-toolbar-title><span >Eshop</span></v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn text v-if="n === 0"
                :to="`/user/messages`"

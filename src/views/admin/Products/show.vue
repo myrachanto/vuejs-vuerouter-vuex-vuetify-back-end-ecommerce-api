@@ -6,7 +6,7 @@
                   max-width="344"
                 >
                   <v-img
-                    :src="`${host}/imgs/products/${form.picture}`"
+                    :src="`${host}/${form.picture}`"
                     height="200px"
                   ></v-img>
 

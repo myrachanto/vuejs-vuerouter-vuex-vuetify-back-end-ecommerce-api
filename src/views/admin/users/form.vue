@@ -252,9 +252,9 @@ export default {
               this.$store.commit("setLoaderTrue")
                  let fd = new FormData();
                  fd.append("picture", this.form.picture, this.form.picture.name)
-                 fd.append("fname", this.form.firstname)
-                 fd.append("lname", this.form.lastname)
-                 fd.append("uname", this.form.username)
+                 fd.append("fname", this.form.f_name)
+                 fd.append("lname", this.form.l_name)
+                 fd.append("uname", this.form.u_name)
                  fd.append("phone", this.form.phone)
                  fd.append("address", this.form.address)
                  fd.append("email", this.form.email)

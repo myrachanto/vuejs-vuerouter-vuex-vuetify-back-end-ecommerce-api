@@ -207,75 +207,12 @@
                                       </v-autocomplete>
                                     </v-col>
                                    </v-row>
-                                     <v-row>
-                                       <v-col
-                                      cols="12"
-                                      md="4"
-                                    ><validation-provider
-                                        v-slot="{ errors }"
-                                        name="oldprice"
-                                        rules="required|"
-                                      >
-                                      <v-text-field
-                                        v-model="form.oldprice"
-                                        label="Old Price"
-                                        :error-messages="errors"   
-                                        required
-                                      ></v-text-field>
-                                      </validation-provider>
-                                    </v-col> 
-                                     <v-col
-                                      cols="12"
-                                      md="4"
-                                    ><validation-provider
-                                        v-slot="{ errors }"
-                                        name="newprice"
-                                        rules="required|"
-                                      >
-                                      <v-text-field
-                                        v-model="form.newprice"
-                                        label="New price"
-                                        :error-messages="errors"   
-                                        required
-                                      ></v-text-field>
-                                      </validation-provider>
-                                    </v-col> 
-                                    <v-col
-                                      cols="12"
-                                      md="4"
-                                    > <validation-provider
-                                        v-slot="{ errors }"
-                                        name="buy price"
-                                        rules="required"
-                                      >
-                                      <v-text-field
-                                        v-model="form.buyprice"
-                                        :error-messages="errors"      
-                                        label="Buying price"
-                                        required
-                                      ></v-text-field>
-                                      </validation-provider>
-                                    </v-col>
-
-                                    
-                                  </v-row>
                                    <v-row>
                                     <v-col
                                       cols="12"
                                       md="12"
-                                    ><validation-provider
-                                        v-slot="{ errors }"
-                                        name="Description"
-                                        rules="required"
-                                      >
-                                      <v-textarea
-                                        v-model="form.description"
-                                        name="input-7-1"
-                                        label="Description"
-                                        :error-messages="errors" 
-                                        required
-                                      ></v-textarea>
-                                      </validation-provider>
+                                    > 
+                                    <vue-editor v-model="form.description"></vue-editor>
                                     </v-col>
                                    </v-row>
                                    <v-row>
@@ -336,6 +273,7 @@
 import cons from '@/helpers/myconstants'
 import categorymodal from '@/components/modals/category'
 import majorcatmodal from '@/components/modals/majorcat'
+import { VueEditor } from "vue2-editor";
 
   import { required, email, max } from 'vee-validate/dist/rules'
   import { extend, ValidationObserver, ValidationProvider, setInteractionMode } from 'vee-validate'
@@ -362,7 +300,8 @@ export default {
       ValidationProvider,
       ValidationObserver,
       categorymodal,
-      majorcatmodal
+      majorcatmodal,
+      VueEditor
     },
   data(){
     return{
@@ -373,9 +312,6 @@ export default {
             majorcat:'',
             category:'',
             price:'',
-            oldprice:'',
-            newprice:'',
-            buyprice:'',
             picture:null
         },
         dialogcategory: false,
@@ -435,9 +371,6 @@ export default {
                   fd.append("name", this.form.name)
                   fd.append("title", this.form.title)
                   fd.append("description", this.form.description)
-                  fd.append("oldprice", this.form.oldprice)
-                  fd.append("newprice", this.form.newprice)
-                  fd.append("buyprice", this.form.buyprice)
                   fd.append("majorcategory", this.majorcati)
                   fd.append("category", this.categoryi)
               // axios.defaults.headers.common['Content-Type'] = 'multipart/form-data'
@@ -454,9 +387,6 @@ export default {
                   fd.append("name", this.form.name)
                   fd.append("title", this.form.title)
                   fd.append("description", this.form.description)
-                  fd.append("oldprice", this.form.oldprice)
-                  fd.append("newprice", this.form.newprice)
-                  fd.append("buyprice", this.form.buyprice)
                   fd.append("majorcategory", this.majorcati)
                   fd.append("category", this.categoryi)
               // axios.defaults.headers.common['Content-Type'] = 'multipart/form-data'

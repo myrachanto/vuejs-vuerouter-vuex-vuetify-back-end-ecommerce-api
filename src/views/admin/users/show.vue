@@ -57,6 +57,7 @@ export default {
     }
   },
   created(){
+    console.log(this.form.picture)
       this.fetchData()
       this.host = cons.host
   },

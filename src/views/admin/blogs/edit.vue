@@ -110,57 +110,24 @@
                                     <v-col
                                       cols="12"
                                       md="12"
-                                    ><validation-provider
-                                        v-slot="{ errors }"
-                                        name="intro"
-                                        rules="required"
-                                      >
-                                      <v-textarea
-                                        v-model="form.intro"
-                                        name="input-7-1"
-                                        label="Introduction"
-                                        :error-messages="errors" 
-                                        required
-                                      ></v-textarea>
-                                      </validation-provider>
+                                    >
+                                    <vue-editor v-model="form.intro"></vue-editor>
                                     </v-col>
                                    </v-row>
                                    <v-row>
                                     <v-col
                                       cols="12"
                                       md="12"
-                                    ><validation-provider
-                                        v-slot="{ errors }"
-                                        name="body"
-                                        rules="required"
-                                      >
-                                      <v-textarea
-                                        v-model="form.body"
-                                        name="input-7-1"
-                                        label="The body"
-                                        :error-messages="errors" 
-                                        required
-                                      ></v-textarea>
-                                      </validation-provider>
+                                    >
+                                    <vue-editor v-model="form.body"></vue-editor>
                                     </v-col>
                                    </v-row>
                                    <v-row>
                                     <v-col
                                       cols="12"
                                       md="12"
-                                    ><validation-provider
-                                        v-slot="{ errors }"
-                                        name="summary"
-                                        rules="required"
-                                      >
-                                      <v-textarea
-                                        v-model="form.summary"
-                                        name="input-7-1"
-                                        label="Summary"
-                                        :error-messages="errors" 
-                                        required
-                                      ></v-textarea>
-                                      </validation-provider>
+                                    >
+                                    <vue-editor v-model="form.summary"></vue-editor>
                                     </v-col>
                                    </v-row>
                                    <v-row>
@@ -216,6 +183,7 @@
 <script>
  import axios from '@/axios'
 import cons from '@/helpers/myconstants'
+import { VueEditor } from "vue2-editor";
 
   import { required, email, max } from 'vee-validate/dist/rules'
   import { extend, ValidationObserver, ValidationProvider, setInteractionMode } from 'vee-validate'
@@ -241,6 +209,7 @@ export default {
   components: {
       ValidationProvider,
       ValidationObserver,
+      VueEditor
     },
   data(){
     return{
