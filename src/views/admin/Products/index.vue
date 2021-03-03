@@ -21,7 +21,6 @@ export default {
               headers:[
                 { text: 'Name', value: 'name' },
                 { text: 'Title', value: 'title' },
-                { text: 'Description', value: 'description' },
                 { text: 'Actions', value: 'actions', sortable: false },
               ]
           }

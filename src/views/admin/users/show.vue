@@ -1,35 +1,44 @@
 <template> 
 <v-container class="ma-5">
                 <v-row> 
-                <v-card
-                  class="mx-auto"
-                  max-width="344"
-                >
-                  <v-img
-                    :src="`${host}${form.picture}`"
-                    height="200px"
-                  ></v-img>
+            <v-card v-if="form"
+            class="mx-auto"
+          >
+           <!-- <div
+           class="height=300px"
+           style="background:#CFD8DC"
+           >
+            <div class="d-flex justify-center">
+              
+            </div>  
+            </div> -->
+            <v-container>
+            <v-row>
+              <v-col md="6">
+            <v-card-title class="display-1">First Name:<br /> {{form.f_name}}</v-card-title>
+            <v-card-title >Last Name: {{form.l_name}}</v-card-title>
+            <v-card-title >User Name: {{form.u_name}}</v-card-title>
+            <v-card-title >Phone: {{form.phone}}</v-card-title>
+            <v-card-title >Address: <p v-html="form.address"></p> </v-card-title>
+            <v-card-title >Email: {{form.email}}</v-card-title>
+              </v-col>
+              <v-col md="6">
+                <v-img v-if="form.picture"
+              max-height="350"
+              max-width="350"
+              contain
+              class="pa-7 "
+              :src="`${host}/${form.picture}`"
+            ></v-img>
+              </v-col></v-row>
+            </v-container>
 
-                  <v-card-title>
-                    {{form.f_name}} {{form.l_name}}
-                  </v-card-title>
-                  <v-card-title>
-                    {{form.u_name}} {{form.phone}}
-                  </v-card-title>
-
-                  <v-card-subtitle>
-                    {{form.email}}
-                  </v-card-subtitle>
-
-                  <v-card-text>
-                    {{form.address}}
-                      </v-card-text>
-
-                    <div class="text-center mt-3">
+          
+          <div class="text-center mt-3">
                       <v-btn class="ma-3" dark @click="Back()">Back</v-btn>
-                      <v-btn class="ma-3" color="teal accent-3" @click="Edit()">Edit</v-btn>
+                      <v-btn class="ma-3" color="blue accent-3" dark @click="Edit(form.code)">Edit</v-btn>
                     </div>
-  </v-card>
+          </v-card>
   </v-row>
 </v-container>
 </template>

@@ -1,34 +1,34 @@
 <template> 
 <v-container class="ma-5">
                 <v-row> 
-                <v-card
-                  class="mx-auto"
-                  max-width="344"
-                >
-                  <v-img
-                    :src="`${host}${form.picture}`"
-                    height="200px"
-                  ></v-img>
+               <v-card v-if="form"
+            class="mx-auto"
+          >
+           <!-- <div
+           class="height=300px"
+           style="background:#CFD8DC"
+           >
+            <div class="d-flex justify-center">
+              
+            </div>  
+            </div> -->
+            <v-container>
+            <v-row>
+              <v-col md="12">
+            <v-card-title class="display-1">Seo Title:   {{form.title}}</v-card-title>
+            <v-card-title >Meta:   {{form.meta}}</v-card-title>
+            <v-card-title >Header one:  {{form.header_1}}</v-card-title>
+            <v-card-title >Header two:  {{form.header_2}}</v-card-title>
+              </v-col>
+              </v-row>
+            </v-container>
 
-                  <v-card-title>
-                    {{form.tilte}} 
-                  </v-card-title>
-                  <v-card-title>
-                    {{form.meta}}
-                  </v-card-title>
-
-                  <v-card-subtitle>
-                    {{form.header_1}}
-                  </v-card-subtitle>
-                  <v-card-subtitle>
-                    {{form.header_2}}
-                  </v-card-subtitle>
-
-                    <div class="text-center mt-3">
+          
+          <div class="text-center mt-3">
                       <v-btn class="ma-3" dark @click="Back()">Back</v-btn>
-                      <v-btn class="ma-3" color="teal accent-3" @click="Edit()">Edit</v-btn>
+                      <v-btn class="ma-3" color="blue accent-3" dark @click="Edit(form.code)">Edit</v-btn>
                     </div>
-  </v-card>
+          </v-card>
   </v-row>
 </v-container>
 </template>

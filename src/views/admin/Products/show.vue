@@ -1,41 +1,46 @@
 <template> 
 <v-container class="ma-5">
                 <v-row> 
-                <v-card
-                  class="mx-auto"
-                  max-width="344"
-                >
-                  <v-img
-                    :src="`${host}/${form.picture}`"
-                    height="200px"
-                  ></v-img>
+               
+  <v-card v-if="form"
+            class="mx-auto"
+          >
+           <!-- <div
+           class="height=300px"
+           style="background:#CFD8DC"
+           >
+            <div class="d-flex justify-center">
+              
+            </div>  
+            </div> -->
+            <v-container>
+            <v-row>
+              <v-col md="6">
+            <v-card-title class="display-1">Product Name:   {{form.name}}</v-card-title>
+            <v-card-title >Title:   {{form.title}}</v-card-title>
+            <v-card-title >Category:   {{form.category}}</v-card-title>
+            <v-card-title >Major category:   {{form.majorcategory}}</v-card-title>
+            <v-card-title >Description:  <p v-html="form.description"></p> </v-card-title>
+            <v-card-title >Old Price:   ${{form.oldprice}}</v-card-title>
+            <v-card-title >New Price:   ${{form.newprice}}</v-card-title>
+            <v-card-title >Buying Price:   ${{form.buyprice}}</v-card-title>
+              </v-col>
+              <v-col md="6">
+                <v-img v-if="form.picture"
+              max-height="350"
+              max-width="350"
+              contain
+              class="pa-7 "
+              :src="`${host}/${form.picture}`"
+            ></v-img>
+              </v-col></v-row>
+            </v-container>
 
-                  <v-card-title>
-                    {{form.name}}
-                  </v-card-title>
-
-                  <v-card-subtitle>
-                    {{form.title}}
-                  </v-card-subtitle>
-                  <v-card-subtitle>
-                   Old price:  ${{form.oldprice}}
-                  </v-card-subtitle>
-                  <v-card-subtitle>
-                    New price: ${{form.newprice}}
-                  </v-card-subtitle>
-                  <v-card-subtitle>
-                    Buy Price: ${{form.buyprice}}
-                  </v-card-subtitle>
-
-                  <v-card-text>
-                        {{form.description}}
-                      </v-card-text>
-
-                    <div class="text-center mt-3">
+          <div class="text-center mt-3">
                       <v-btn class="ma-3" dark @click="Back()">Back</v-btn>
-                      <v-btn class="ma-3" color="teal accent-3" @click="Edit()">Edit</v-btn>
+                      <v-btn class="ma-3" color="blue accent-3" dark @click="Edit(form.code)">Edit</v-btn>
                     </div>
-  </v-card>
+          </v-card>
   </v-row>
 </v-container>
 </template>
