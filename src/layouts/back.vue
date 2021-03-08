@@ -124,7 +124,7 @@
 
 <script>
 import cons from '../helpers/myconstants'
-import axios from '../axios'
+// import axios from '../axios'
 import foot from './foot'
   export default {
     data: () => ({ drawer: null,
@@ -160,7 +160,7 @@ import foot from './foot'
          async logout(){
         try {
               this.$store.commit("setLoaderTrue")
-                await axios.get(`/api/logout/${this.$store.getters.Token}`)
+                // await axios.get(`/api/logout/${this.$store.getters.Token}`)
                     localStorage.removeItem('access_token')
                     localStorage.removeItem('username')
                     localStorage.removeItem('admin')
